@@ -1,4 +1,4 @@
-const loadPhone = async (searchText='13', isShowAll) =>{
+const loadPhone = async (searchText = '13', isShowAll) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);
     const data = await res.json();
     const phones = data.data;
@@ -7,7 +7,7 @@ const loadPhone = async (searchText='13', isShowAll) =>{
 }
 
 
-const displayPhones = (phones, isShowAll) =>{
+const displayPhones = (phones, isShowAll) => {
     // console.log(phones)
 
     const phoneContainer = document.getElementById('phone-container');
@@ -16,19 +16,19 @@ const displayPhones = (phones, isShowAll) =>{
 
     // display show all button if there are more than 12 phones
     const showAllContainer = document.getElementById('show-all-container')
-    if(phones.length > 12 && !isShowAll){
+    if (phones.length > 12 && !isShowAll) {
         showAllContainer.classList.remove('hidden');
     }
-    else{
+    else {
         showAllContainer.classList.add('hidden');
     }
     // console.log('is show all', isShowAll)
     // display only first 12 phones if not show All
-    if(!isShowAll){
-        phones = phones.slice(0,12);
+    if (!isShowAll) {
+        phones = phones.slice(0, 12);
     }
 
-    phones.forEach(phone =>{
+    phones.forEach(phone => {
         // console.log(phone);
         // 2 create a div
         const phoneCard = document.createElement('div');
@@ -53,18 +53,18 @@ const displayPhones = (phones, isShowAll) =>{
 }
 
 // 
-const handleShowDetail = async (id) =>{
+const handleShowDetail = async (id) => {
     // console.log('clicked show details', id)
     // load single phone data
     const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
     const data = await res.json();
     const phone = data.data;
-    
+
     showPhoneDetails(phone)
 
 }
 
-const showPhoneDetails = (phone) =>{
+const showPhoneDetails = (phone) => {
     console.log(phone);
     const phoneName = document.getElementById('show-detail-phone-name');
     phoneName.innerText = phone.name;
@@ -74,7 +74,8 @@ const showPhoneDetails = (phone) =>{
     showDetailContainer.innerHTML = `
         <img src="${phone.image}" alt="" />
         <p><span>Storage:</span>${phone?.mainFeatures?.storage}</p>
-        <p><span>GPS:</span>${phone?.others?.GPS || 'No GPS'}</p>
+        <p><span>GPS:</span>${phone.others?.GPS || 'No GPS available'}</p>
+        <p><span>GPS:</span>${phone.others?.GPS ? phone.others.GPS : 'No GPS available in this device'}</p>
     `
 
     // show the modal
@@ -83,7 +84,7 @@ const showPhoneDetails = (phone) =>{
 
 
 // handle search button
-const handleSearch = (isShowAll) =>{
+const handleSearch = (isShowAll) => {
     toggleLoadingSpinner(true);
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
@@ -98,18 +99,18 @@ const handleSearch = (isShowAll) =>{
 //     loadPhone(searchText);
 // }
 
-const toggleLoadingSpinner = (isLoading) =>{
+const toggleLoadingSpinner = (isLoading) => {
     const loadingSpinner = document.getElementById('loading-spinner');
-    if(isLoading){
+    if (isLoading) {
         loadingSpinner.classList.remove('hidden')
     }
-    else{
+    else {
         loadingSpinner.classList.add('hidden');
     }
 }
 
 // handle show all
-const handleShowAll = () =>{
+const handleShowAll = () => {
     handleSearch(true);
 }
 
