@@ -18,11 +18,19 @@
         <section class="bg-gray-100 p-4 m-4">
             <input id="search-field" type="text" placeholder="search..." class="input input-bordered w-full max-w-xs" />
             <button onclick="handleSearch()" class="btn btn-accent">Search</button>
+            <!-- another search field -->
+            <input type="text" id="search-field2" placeholder="Search here" class="input input-bordered w-full max-w-xs" />
+            <button onclick="handleSearch2()" class="btn btn-active btn-primary">Search</button>
+
         </section>
 
         <!-- search result -->
         <section>
             <div id="phone-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            </div>
+            <!-- show all button -->
+            <div id="show-all-container" class="hidden" >
+                <button class="btn btn-accent">Show All</button>
             </div>
         </section>
     </main>
